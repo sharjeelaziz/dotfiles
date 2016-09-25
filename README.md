@@ -18,3 +18,16 @@ Use stow to install the dotfiles you want to use:
     cd ~/.dotfiles
     stow vim
     stow tmux
+
+#### Notes
+```.oh-my-zsh``` is subtree and can be created using the following:
+
+```
+git subtree add --prefix oh-my-zsh/.oh-my-zsh git@github.com:robbyrussell/oh-my-zsh.git master --squash
+```
+
+Issue a subtree pull to update the ```oh-my-sh``` folder.
+
+```
+git subtree pull --prefix oh-my-zsh/.oh-my-zsh git@github.com:robbyrussell/oh-my-zsh.git master --squash
+```
