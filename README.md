@@ -20,9 +20,9 @@ Use stow to install the dotfiles you want to use:
     stow tmux
 
 Install Vundle
-
+```
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
+```
 #### Notes
 ```.oh-my-zsh``` is subtree and can be created using the following:
 
