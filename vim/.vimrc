@@ -1,8 +1,13 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-syntax enable
 
+" Solarized Dark
 syntax enable
+set t_Co=256
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
+
 set number
 set ts=4
 set autoindent
@@ -11,9 +16,6 @@ set shiftwidth=4
 set cursorline
 set showmatch
 let python_highlight_all = 1
-set background=dark
-let g:solarized_termcolors=256
-set t_Co=256
 set shiftround
 
 " set the runtime path to include Vundle and initialize
@@ -31,6 +33,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tmux-plugins/vim-tmux'
 
 call vundle#end()            " required
 
@@ -47,4 +50,4 @@ let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 
-colorscheme solarized
+"colorscheme solarized
