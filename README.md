@@ -1,32 +1,39 @@
 ## Installation
-Clone the repoostory first.
+Clone this repository first to the home folder.
 ```
-git clone git@github.com:sharjeelaziz/dotfiles.git ~/.dotfiles
+$ git clone git@github.com:sharjeelaziz/dotfiles.git ~/.dotfiles
 ```
 
-### [GNU Stow](https://www.gnu.org/software/stow/)
+Install zsh, vim, stow, tmux
 
-Install .oh_my_zsh
+```
+$ sudo apt-get install -y zsh vim stow tmux
+```
+
+Install .oh_my_zsh from the following:
 
 https://github.com/robbyrussell/oh-my-zsh
 
-Install vim
-
 Install Vundle
 ```
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ```
-Install GNU Stow
-
-    Mac:      brew install stow
-    Ubuntu:   apt-get install stow
-    Fedora:   yum install stow
-    Arch:     pacman -S stow
 
 Use stow to install the dotfiles you want to use:
+```
+$ cd ~/.dotfiles
+$ stow vim
+$ stow tmux
+$ stow zsh
+```
+Install vim plugins in vim with the command ```:PluginInstall```
 
-    cd ~/.dotfiles
-    stow vim
-    stow tmux
+Note:
+Fix for "Cannot find color scheme solarized" error.
 
-Install vim plugins with :PluginInstall
+```
+$ cp ~/.vim/bundle/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
+```
+
+
+
