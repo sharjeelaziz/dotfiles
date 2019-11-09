@@ -31,4 +31,6 @@
 
   ```
   $ git config --global user.signingkey 3AA5C34371567BD2
+  $ git config --global user.email "sharjeel.aziz@gmail.com"
+  $ git config --global user.name "Sharjeel Aziz"
   ```
