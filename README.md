@@ -35,5 +35,4 @@ Fix for "Cannot find color scheme solarized" error.
 $ cp ~/.vim/bundle/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 ```
 
-
-
+Refer to gpg-yubikey.md for gpg siging with github.
