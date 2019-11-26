@@ -2,17 +2,14 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " Solarized Dark
-syntax enable
+syntax on
 set t_Co=256
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 
 set number
-set ts=4
 set autoindent
-set expandtab
-set shiftwidth=4
 set cursorline
 set showmatch
 let python_highlight_all = 1
@@ -51,3 +48,18 @@ let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 
 "colorscheme solarized
+syntax on
+set title
+
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
+set noexpandtab
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
