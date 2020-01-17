@@ -31,6 +31,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tmux-plugins/vim-tmux'
+Plugin 'robertbasic/vim-hugo-helper'
 
 call vundle#end()            " required
 
