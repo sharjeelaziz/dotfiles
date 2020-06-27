@@ -4,7 +4,8 @@
 
   ```
   $ gpg --card-status # check to see if card is visible to the system  
-  $ gpg --search sharjeel.aziz@gmail.com # allows one to import public key
+  $ curl https://keybase.io/sharjeelaziz/pgp_keys.asc -o public-key.asc # allows one to import public key
+  $ gpg --import public-key.asc
   $ echo "test" | gpg --clearsign # test to see if it works
   ```
 
