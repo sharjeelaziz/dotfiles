@@ -35,3 +35,9 @@
   $ git config --global user.email "sharjeel.aziz@gmail.com"
   $ git config --global user.name "Sharjeel Aziz"
   ```
+
+Note: If you get an error message saying “gpg: signing failed: Inappropriate ioctl for device”, do this:
+
+```
+export GPG_TTY=$(tty)
+```
