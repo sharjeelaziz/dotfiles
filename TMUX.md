@@ -109,7 +109,7 @@ you need to log/save all the work.
 **NOTE**: this functionality depends on the value of `history-limit` - the number
 of lines Tmux keeps in the scrollback buffer. Only what Tmux kept will also be saved, to a file.
 
-Use `set -g history-limit 100000` in .tmux.conf, with modern computers
+Use `set -g history-limit 110000` in .tmux.conf, with modern computers
 it is ok to set this option to a high number.
 
 ## 4. Clear pane history
