@@ -6,7 +6,7 @@ Import your public keyring.
 gpg --card-status # check to see if card is visible to the system  
 curl https://keybase.io/sharjeelaziz/pgp_keys.asc -o public-key.asc # allows one to import public key
 gpg --import public-key.asc
-echo "test message string" | gpg --encrypt --armor --recipient sharjeel.aziz@gmail.com -o encrypted.txt
+echo "test message string" | gpg --encrypt --armor --recipient <email> -o encrypted.txt
 gpg --decrypt --armor encrypted.txt
 ```
 
@@ -36,7 +36,7 @@ To set your GPG signing key in Git, paste the text below, substituting in the GP
 
 ```bash
 git config --global user.signingkey 3AA5C34371567BD2
-git config --global user.email "sharjeel.aziz@gmail.com"
+git config --global user.email "<email>"
 git config --global user.name "Sharjeel Aziz"
 ```
 
@@ -47,10 +47,8 @@ If you get an error message saying ```gpg: signing failed: Inappropriate ioctl f
 export GPG_TTY=$(tty)
 ```
 
-If you see errors that the secret key was not found it could be that the stubs were not imported by ```gpg --card-status``` command. A good indication could be that there is a # behind the key:
-
-```bash
-sec#  rsa4096 2016-10-19 [SC]
-```
+If you see errors that the secret key was not found it could be that the stubs were not imported by ```gpg --card-status``` command. 
 
 You can manually import the stubs using ```gpg --recv-keys 3AA5C34371567BD2```
+
+It could really be nothing. If it is having trouble calling pinentry try to decode a file to force pin entry.
