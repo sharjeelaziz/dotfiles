@@ -1,5 +1,11 @@
 # Using  Yubikey on another computer
 
+Install required software
+
+```bash
+sudo apt-get install scdaemon
+```
+
 Import your public keyring.
 
 ```bash
