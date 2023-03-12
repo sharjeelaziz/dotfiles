@@ -24,7 +24,7 @@ To import the key permanently, instead run:
 ssh-keygen -K
 ```
 
-This will write two files into the current directory: 
+Remember to use the same password that you used when generating the key. This will write two files into the current directory: 
 
 ```id_ecdsa_sk_rk``` and ```id_ecdsa_sk_rk.pub```. Now you just need to rename the private key file to id_ecdsa_sk and move it into your SSH directory:
 
