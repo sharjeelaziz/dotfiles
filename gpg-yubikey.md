@@ -58,3 +58,33 @@ If you see errors that the secret key was not found it could be that the stubs w
 You can manually import the stubs using ```gpg --recv-keys 3AA5C34371567BD2```
 
 It could really be nothing. If it is having trouble calling pinentry try to decode a file to force pin entry.
+
+## Using Multiple Keys
+
+To use a single identity with multiple YubiKeys - or to replace a lost card with another - issue this command to switch keys:
+
+```console
+$ gpg-connect-agent "scd serialno" "learn --force" /bye
+```
+
+Alternatively, use a script to delete the GnuPG shadowed key, where the card serial number is stored (see [GnuPG #T2291](https://dev.gnupg.org/T2291)):
+
+```console
+$ cat >> ~/scripts/remove-keygrips.sh <<EOF
+#!/usr/bin/env bash
+(( $# )) || { echo "Specify a key." >&2; exit 1; }
+KEYGRIPS=$(gpg --with-keygrip --list-secret-keys "$@" | awk '/Keygrip/ { print $3 }')
+for keygrip in $KEYGRIPS
+do
+    rm "$HOME/.gnupg/private-keys-v1.d/$keygrip.key" 2> /dev/null
+done
+
+gpg --card-status
+EOF
+
+$ chmod +x ~/scripts/remove-keygrips.sh
+
+$ ~/scripts/remove-keygrips.sh $KEYID
+```
+
+See discussion in Issues [#19](https://github.com/drduh/YubiKey-Guide/issues/19) and [#112](https://github.com/drduh/YubiKey-Guide/issues/112) for more information and troubleshooting steps.
