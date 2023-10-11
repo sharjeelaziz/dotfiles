@@ -1,12 +1,46 @@
 # Using  Yubikey on another computer
 
-Install required software
+## Install required software
 
 ```bash
 sudo apt-get install scdaemon
 ```
 
-Import your public keyring.
+### Mac Specific
+
+Install the software
+
+```bash
+brew install gpg2 gnupg pinentry-mac
+
+# Make the directory
+mkdir ~/.gnupg
+
+# Tells GPG which pinentry program to use
+echo "pinentry-program $(brew --prefix)/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
+
+# This tells gpg to use the gpg-agent
+echo 'use-agent' > ~/.gnupg/gpg.conf
+```
+
+Append the following to your ~/.bash_profile or ~/.bashrc or ~/.zshrc
+
+```
+export GPG_TTY=$(tty)
+```
+
+Restart your Terminal or source your ~/.*rc file
+
+```bash
+# on the built-in bash on macos use
+source ~/.bash_profile
+# if using bash through homebrew over ssh use
+source ~/.bashrc
+# and if using zsh
+source ~/.zshrc
+```
+    
+## Import your public keyring.
 
 ```bash
 gpg --card-status # check to see if card is visible to the system  
@@ -43,7 +77,6 @@ To set your GPG signing key in Git, paste the text below, substituting in the GP
 ```bash
 git config --global user.signingkey 3AA5C34371567BD2
 git config --global user.email "<email>"
-git config --global user.name "Sharjeel Aziz"
 ```
 
 ## Errors
