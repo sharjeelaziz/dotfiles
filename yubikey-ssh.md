@@ -3,6 +3,21 @@
 ## Using resident keys
 If your security key supports FIDO2 resident keys you can save your SSH key to Yubikey making it easier to import the key on a new computer.
 
+### Installation
+
+```bash
+brew install openssh
+```
+Add to shell rc file
+
+```bash
+export PATH=$(brew --prefix openssh)/bin:$PATH
+```
+
+```bash
+source .zshrc
+```
+
 ### Create
 
 ```bash
