@@ -42,6 +42,12 @@ Install .oh_my_zsh from the following:
 
 <https://github.com/robbyrussell/oh-my-zsh>
 
+Download cleaner themne
+
+```bash
+curl https://raw.githubusercontent.com/sharjeelaziz/clean-zsh-theme/main/cleaner.zsh-theme -o ~/.oh-my-zsh/themes/cleaner.zsh-theme
+```
+
 Install Vundle
 
 ```bash
