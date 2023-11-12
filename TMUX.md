@@ -34,6 +34,10 @@ Use <kbd>page up</kbd> and <kbd>page down</kbd> to move around. Hit <kbd>space</
 
 Open vim to paste: <kbd>⌃ Control</kbd> + <kbd>a</kbd> <kbd>]</kbd> to paste
 
+## Synchronize Panes
+
+<kbd>⌃ Control</kbd> + <kbd>a</kbd> <kbd>:setw synchronize-panes</kbd> to synchronize panes and again to disable
+
 ## Navigation
 
 Send window as a pane to another window: <kbd>⌃ Control</kbd> + <kbd>a</kbd> <kbd>s</kbd>
