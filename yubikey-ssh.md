@@ -53,6 +53,11 @@ If your security key supports FIDO2 user verification you can enable it when cre
 ```bash
 ssh-keygen -t ecdsa-sk -O verify-required
 ```
+or for token2 FIDO Keys:
+
+```bash
+ssh-keygen -a 200 -t ecdsa-sk -C "T2F2-NFC-Slim" -O resident -O application=ssh:token2 -O verify-required
+```
 
 This will configure the security key to require a PIN or other user authentication whenever you use this SSH key. Your SSH access is now protected with passwordless multi-factor authentication.
 
