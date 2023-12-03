@@ -1,56 +1,92 @@
-# SSH Security Keys/Resident Keys/Credentials
 
-## Using resident keys
-If your security key supports FIDO2 resident keys you can save your SSH key to it. This makes it easier to import the key on a new computer.
+## Discoverable (resident) vs Non-Discoverable Credentials
 
-### Installation
+Benefits of Non-discoverable keys:
 
-```bash
-brew install openssh
+* Cannot be used by another person without the credential id file, even if the PIN is known.
+* Ideal for systems where privacy is important if the key is lost or stolen
+
+Benefits of Discoverable keys:
+
+* Can be taken to any compatible workstation and used to authenticate by touch and FIDO2 PIN
+* Ideal for ease of access where the PIN is known
+
+### Setting up OpenSSH for FIDO2 Authentication
+
+Regardless of which credential option is selected, there are some prerequisites:
+
+* Local and remote systems must be running OpenSSH 8.3 or higher
+* FIDO2 PIN must be set on the key. This can be accomplished using YubiKey Manager or Chrome browser (```chrome://settings/securityKeys```)
+
+On the client side, you can also append `verify-required` to a `~/.ssh/authorized_keys` entry to have sshd check the UV flag for that credential only:
+
 ```
-Add to shell rc file
-
-```bash
-export PATH=$(brew --prefix openssh)/bin:$PATH
+cat .ssh/authorized_keys
+sk-ssh-ed25519@openssh.com <EntryID> verify-required
 ```
 
+## Discoverable Key Instructions
+
+Open a Terminal window and type the following command to generate a key using the ecdsa curve:
+
 ```bash
-source .zshrc
+ssh-keygen -t ecdsa-sk -O resident -O verify-required
 ```
 
-### New Computer
-Make sure that ssh-agent is running on the new computer and run the following to use the SSH key:
+To use the ed25519 curve (not supported by all keys), use the following command instead:
 
 ```bash
-ssh-add -K
+ssh-keygen -t ed25519-sk -O resident -O verify-required
 ```
 
-This will load a “key handle” into the SSH agent and make the key available for use on the new computer. It works for short visits and you’ll need to run ssh-add again if you reboot the computer. 
+Enter the PIN and touch the device when promted. Note that not all systems may ask for the user to touch their key, but only require the PIN.
 
-To import the key permanently, instead run:
+By default, the generated filenames will be `id_ecdsa_sk` & `id_ecdsa_sk.pub`. The first file, `id_ecdsa_sk`, contains a reference to the private key. The second file, `id_ecdsa_sk.pub`, contains the public key which is used on a remote system to verify authentication. The public key can be added to a remote server with the following command:
 
 ```bash
+ssh-copy-id -i ~/.ssh/id_ecdsa_sk.pub <user@host>
+```
+
+### Using a discoverable credential on another computer
+    
+Open a Terminal window and type the following commands to copy files:
+
+```bash
+cd ~/.ssh
 ssh-keygen -K
 ```
 
-Remember to use the same password that you used when generating the key. This will write two files into the current directory: 
+SSH will ask the user to enter your PIN and touch the device.
 
-```id_ecdsa_sk_rk``` and ```id_ecdsa_sk_rk.pub```. Now you just need to rename the private key file to id_ecdsa_sk and move it into your SSH directory:
-
-```bash
-mv id_ecdsa_sk_rk ~/.ssh/id_ecdsa_sk
-```
-
-### Create Keys
-If your security key supports FIDO2 user verification you can enable it when creating your SSH key:
+If this is the only credential on the system, you can rename the exported credentials as `id_ecdsa_sk` and `id_ecdsa_sk.pub` to allow seamless authentication. In case of multiple credentials you can use the `-i` option to select a private key:
 
 ```bash
-ssh-keygen -a 200 -t ecdsa-sk -C "t2f2-nfc-Slim" -O resident -O application=ssh:token2 -O verify-required
+ssh -i .ssh/token2_sk <user@host>
 ```
 
-This will configure the security key to require a PIN or other user authentication whenever you use this SSH key. Your SSH access is now protected with passwordless multi-factor authentication.
+## Non Discoverable Key Instructions
 
-#### Notes
-“Resident keys” have been renamed to “discoverable credentials” in the WebAuthn and CTAP standards, but OpenSSH still uses the “resident key” terminology.
+Open a Terminal window and type the following command to generate a key using the ecdsa curve:
 
-If you get an error while creating keys on a brand new Yubikey use Chrome to setup a PIN for the security key first.
+```bash
+ssh-keygen -t ecdsa-sk
+```
+
+SSH will request the user to enter their PIN and touch the device.
+
+SSH will save two files. A user can check their console and to display the actual filenames. By default, these filenames will be `id_ecdsa_sk` & `id_ecdsa_sk.pub`, but may be different dependent on whether or not it was changed to something else when prompted for a save location. 
+
+The first file, `id_ecdsa_sk`, contains a reference to the private key credential stored on the key. The second file, `id_ecdsa_sk.pub`, contains the public key which is used on a remote system to verify authentication.
+
+The public key can be added to a remote server with the following command:
+
+```bash
+ssh-copy-id -i ~/.ssh/id_ecdsa_sk.pub user@host
+```
+
+### Using non-discoverable keys on another computer
+
+Copy the id_ecdsa_sk file and id_ecdsa_sk.pub generated earlier to the` ~/.ssh` folder on this computer.
+
+SSH to the remote system and touch the key when prompted.
+
