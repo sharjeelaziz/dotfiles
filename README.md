@@ -2,13 +2,13 @@
 
 Clone this repository first to the home folder.
 
-```bash
+```command
 git clone git@github.com:sharjeelaziz/dotfiles.git ~/.dotfiles
 ```
 
 Install zsh, vim, stow, tmux
 
-```bash
+```command
 sudo apt-get install -y zsh vim stow tmux
 ```
 
@@ -18,7 +18,7 @@ Install Tmux Plugin Manager
 
 Clone TPM:
 
-```bash
+```command
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
@@ -31,7 +31,7 @@ run '~/.tmux/plugins/tpm/tpm'
 
 Reload TMUX environment so TPM is sourced:
 
-```bash
+```command
 # type this in terminal if tmux is already running
 tmux source ~/.tmux.conf
 ```
@@ -42,17 +42,29 @@ Install .oh_my_zsh from the following:
 
 <https://github.com/robbyrussell/oh-my-zsh>
 
-Download cleaner themne
+Download cleaner theme
 
-```bash
+```command
 curl https://raw.githubusercontent.com/sharjeelaziz/clean-zsh-theme/main/cleaner.zsh-theme -o ~/.oh-my-zsh/themes/cleaner.zsh-theme
 ```
 
-Install Vundle
+Install Vim-Plug from Github
 
-```bash
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```command
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+
+Create a new directory to store plugins
+
+```command
+mkdir ~/vimplug-plugins
+```
+
+{{< note >}}
+Any additional plug-ins to be installed need to be added between the "plug#begin" and "plug#end" lines in `~/.vimrc.plug`.
+
+If you receive an error similar to `E117 Unknown Function: plug#end` check permissions over `~/.vim/` you may need to `chmod -R 0755`.
+{{< /note >}}
 
 Use stow to install the dotfiles you want to use:
 
@@ -63,15 +75,16 @@ stow tmux
 stow zsh
 ```
 
-Install vim plugins in vim with the command `:PluginInstall`
+Run vim and install the plugins
 
-Note:
-Fix for "Cannot find color scheme solarized" error.
-
-```bash
-cp ~/.vim/bundle/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
+```command
+:PlugInstall
 ```
 
 Refer to [GPG-Yubikey](gpg-yubikey.md) for signing commits.
 
+Refer to [ssh resident keys](resident-keys.md).
+
 Refer to [TMUX](TMUX.md) for a refresher.
+
+Refer to [vim](vim.md) for a vim refresher.

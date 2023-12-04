@@ -64,4 +64,4 @@ This will configure the security key to require a PIN or other user authenticati
 #### Notes
 “Resident keys” have been renamed to “discoverable credentials” in the WebAuthn and CTAP standards, but OpenSSH still uses the “resident key” terminology.
 
-If you get an error while creating keys on a brand new Yubikey use Chrome to setup a PIN for the security key first.
+If you get an error while creating keys on a brand new Yubikey use *Chrome* to setup a PIN for the security key first.

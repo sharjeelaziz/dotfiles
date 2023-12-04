@@ -1,66 +1,86 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
-" Solarized Dark
+" syntax highlighting
 syntax on
-set t_Co=256
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
 
+" for plug-ins to load
+filetype plugin indent on
+
+" turn off modelines
+set modelines=0
+
+" automatically wrap text
+set wrap
+
+" vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+set formatoptions=tcqrn1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+" display 6 lines above/below the cursor when scrolling with a mouse
+set scrolloff=6
+
+" fixes common backspace problems
+set backspace=indent,eol,start
+
+" speed up scrolling in Vim
+set ttyfast
+
+" status bar
+set laststatus=2
+
+" display options
+set showmode
+set showcmd
+
+" highlight matching pairs of brackets. Use the '%' character to jump between them
+set matchpairs+=<:>
+
+" display different types of white spaces
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
+" show line numbers
 set number
-set autoindent
-set cursorline
-set showmatch
-let python_highlight_all = 1
-set shiftround
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/.vim/bundle/vim-colors-solarized
+" set status line display
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 
-call vundle#begin()
+" encoding
+set encoding=utf-8
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Raimondi/delimitMate'
-Plugin 'scrooloose/syntastic'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tmux-plugins/vim-tmux'
-Plugin 'robertbasic/vim-hugo-helper'
+" highlight matching search patterns
+set hlsearch
 
-call vundle#end()            " required
+" Enable incremental search
+set incsearch
 
-" This does what it says on the tin. It will check your file on open too, not
-" just on save.
-" You might not want this, so just leave it out if you don't.
-let g:syntastic_check_on_open=1
-filetype plugin indent on    " required
-" These are the tweaks I apply to YCM's config, you don't need them but they
-" might help.
-" " YCM gives you popups and splits by default that some people might not
-" like, so these should tidy it up a bit for you.
-let g:ycm_add_preview_to_completeopt=0
-let g:ycm_confirm_extra_conf=0
-set completeopt-=preview
+" include matching uppercase words with lowercase search term
+set ignorecase
 
-"colorscheme solarized
-syntax on
-set title
+" include only uppercase words with uppercase search term
+set smartcase
 
-set tabstop=8
-set softtabstop=8
-set shiftwidth=8
-set noexpandtab
+" store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
+set viminfo='100,<9999,s100
 
-" add yaml stuffs
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+" map the <Space> key to toggle a selected fold opened/closed.
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+" automatically save and load folds
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview"
+
+" call the .vimrc.plug file
+if filereadable(expand("~/.vimrc.plug"))
+    source ~/.vimrc.plug
+endif
