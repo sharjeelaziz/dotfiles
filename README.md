@@ -60,11 +60,9 @@ Create a new directory to store plugins
 mkdir ~/vimplug-plugins
 ```
 
-{{< note >}}
-Any additional plug-ins to be installed need to be added between the "plug#begin" and "plug#end" lines in `~/.vimrc.plug`.
+**_NOTE_**:
+Any additional plug-ins to be installed need to be added between the "plug#begin" and "plug#end" lines in `~/.vimrc.plug`. If you receive an error similar to `E117 Unknown Function: plug#end` check permissions over `~/.vim/` you may need to `chmod -R 0755`.
 
-If you receive an error similar to `E117 Unknown Function: plug#end` check permissions over `~/.vim/` you may need to `chmod -R 0755`.
-{{< /note >}}
 
 Use stow to install the dotfiles you want to use:
 
