@@ -69,10 +69,10 @@ set ignorecase
 " include only uppercase words with uppercase search term
 set smartcase
 
-" store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
+" store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files
 set viminfo='100,<9999,s100
 
-" map the <Space> key to toggle a selected fold opened/closed.
+" map the <Space> key to toggle a selected fold opened/closed
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
@@ -84,3 +84,15 @@ autocmd BufWinEnter *.* silent loadview"
 if filereadable(expand("~/.vimrc.plug"))
     source ~/.vimrc.plug
 endif
+
+" Map key chord `jk` to <Esc>
+let g:esc_j_lasttime = 0
+let g:esc_k_lasttime = 0
+function! JKescape(key)
+	if a:key=='j' | let g:esc_j_lasttime = reltimefloat(reltime()) | endif
+	if a:key=='k' | let g:esc_k_lasttime = reltimefloat(reltime()) | endif
+	let l:timediff = abs(g:esc_j_lasttime - g:esc_k_lasttime)
+	return (l:timediff <= 0.05 && l:timediff >=0.001) ? "\b\e" : a:key
+endfunction
+inoremap <expr> j JKescape('j')
+inoremap <expr> k JKescape('k')
