@@ -10,6 +10,10 @@ filetype plugin indent on
 " turn off modelines
 set modelines=0
 
+" spell check
+
+set spell spelllang=en_us
+
 " automatically wrap text
 set wrap
 
