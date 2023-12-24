@@ -117,3 +117,7 @@ setopt HIST_IGNORE_DUPS
 
 #add timestamp for each entry
 setopt EXTENDED_HISTORY 
+
+# If a ~/.zshrc.local exists, source it
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+

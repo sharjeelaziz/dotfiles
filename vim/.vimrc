@@ -1,8 +1,16 @@
 set nocompatible
 filetype off
 
+" You might have to force true color when using regular vim inside tmux as the
+" colorscheme can appear to be grayscale with "termguicolors" option enabled.
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 " syntax highlighting
 syntax on
+set termguicolors
 
 " for plug-ins to load
 filetype plugin indent on
@@ -11,8 +19,13 @@ filetype plugin indent on
 set modelines=0
 
 " spell check
-
 set spell spelllang=en_us
+
+" fix spelling
+nnoremap f 1z=
+
+" toggle spelling visuals
+nnoremap s :set spell!
 
 " automatically wrap text
 set wrap
@@ -94,6 +107,8 @@ autocmd BufWinEnter *.* silent loadview"
 if filereadable(expand("~/.vimrc.plug"))
     source ~/.vimrc.plug
 endif
+
+colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
 
 " Map key chord `jk` to <Esc>
 let g:esc_j_lasttime = 0

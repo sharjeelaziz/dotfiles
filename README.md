@@ -9,7 +9,7 @@ git clone git@github.com:sharjeelaziz/dotfiles.git ~/.dotfiles
 Install zsh, vim, stow, tmux
 
 ```command
-sudo apt-get install -y zsh vim stow tmux
+sudo apt-get install -y zsh vim vim-nox stow tmux
 ```
 
 Install Tmux Plugin Manager
@@ -78,6 +78,8 @@ Run vim and install the plugins
 ```command
 :PlugInstall
 ```
+
+Install themes for your terminal [Catppuccin](https://github.com/catppuccin)
 
 Refer to [GPG-Yubikey](gpg-yubikey.md) for signing commits.
 
