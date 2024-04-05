@@ -6,7 +6,7 @@ Clone this repository first to the home folder.
 git clone git@github.com:sharjeelaziz/dotfiles.git ~/.dotfiles
 ```
 
-Install zsh, vim, stow, tmux
+Install zsh, vim, stow, tmux, starship
 
 ```command
 sudo apt-get install -y zsh vim vim-nox stow tmux
@@ -38,14 +38,10 @@ tmux source ~/.tmux.conf
 
 Hit `prefix + I` to fetch the plugin and source it.
 
-Install .oh_my_zsh from the following:
+Install Starship
 
-<https://github.com/robbyrussell/oh-my-zsh>
-
-Download cleaner theme
-
-```command
-curl https://raw.githubusercontent.com/sharjeelaziz/clean-zsh-theme/main/cleaner.zsh-theme -o ~/.oh-my-zsh/themes/cleaner.zsh-theme
+```bash
+curl -sS https://starship.rs/install.sh | sh
 ```
 
 Install Vim-Plug from Github
@@ -71,6 +67,8 @@ cd ~/.dotfiles
 stow vim
 stow tmux
 stow zsh
+stow bash
+stow config -t ~/.config
 ```
 
 Run vim and install the plugins
