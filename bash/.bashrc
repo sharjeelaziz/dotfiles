@@ -19,6 +19,9 @@ shopt -s histappend
 HISTSIZE=10000
 HISTFILESIZE=20000
 
+# do not add these to history
+HISTIGNORE="clear:history:[bf]g:exit:date:* --help:rm *:cp *:ls *:cd *:cd:ls"
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -115,6 +118,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-. "$HOME/.cargo/env"
+
+#. "$HOME/.cargo/env"
 
 eval "$(starship init bash)"
