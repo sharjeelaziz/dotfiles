@@ -50,19 +50,20 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
+# Update prompt to include Git branch
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (\[\033[01;33m\]%s\[\033[00m\])")\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1 " (%s)")\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -119,6 +120,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-#. "$HOME/.cargo/env"
+# get this from git
+# curl https://raw.githubusercontent.com/git/git/refs/heads/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh
+source ~/.git-prompt.sh
 
-eval "$(starship init bash)"
+#. "$HOME/.cargo/env"
+#eval "$(starship init bash)"
