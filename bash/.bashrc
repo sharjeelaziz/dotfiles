@@ -96,9 +96,25 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+#echo "your_bearer_token_here" > ~/.ntfy_token
+#chmod 600 ~/.ntfy_token
+
+# Function for alert notifications using ntfy.sh
+notify_via_ntfy() {
+  local token=$(< ~/.ntfy_token) # Securely read the token
+  local status_icon="$([ $? = 0 ] && echo terminal || echo error)"
+  local last_command=$(history | tail -n1 | sed -e 's/^[[:space:]]*[0-9]\{1,\}[[:space:]]*//' -e 's/[;&|][[:space:]]*alert$//')
+
+  curl -s -X POST "https://n.xref.dev/alerts" \
+       -H "Authorization: Bearer $token" \
+       -H "Title: Command Done" \ 
+       -H "X-Priority: 3" \
+       -H "Tags: $status_icon" \
+       -d "$last_command"
+}
+
+# Add an "alert" alias for long running commands using ntfy.sh
+alias alert='notify_via_ntfy'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
