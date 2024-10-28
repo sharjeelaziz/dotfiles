@@ -102,15 +102,15 @@ alias l='ls -CF'
 # Function for alert notifications using ntfy.sh
 notify_via_ntfy() {
   local token=$(< ~/.ntfy_token) # Securely read the token
-  local status_icon="$([ $? = 0 ] && echo terminal || echo error)"
+  local status_icon="$([ $? = 0 ] && echo magic_wand || echo warning)"
   local last_command=$(history | tail -n1 | sed -e 's/^[[:space:]]*[0-9]\{1,\}[[:space:]]*//' -e 's/[;&|][[:space:]]*alert$//')
 
   curl -s -X POST "https://n.xref.dev/alerts" \
        -H "Authorization: Bearer $token" \
-       -H "Title: Command Done" \ 
+       -H "Title: Terminal" \
        -H "X-Priority: 3" \
        -H "Tags: $status_icon" \
-       -d "$last_command"
+       -d "Command: $last_command"
 }
 
 # Add an "alert" alias for long running commands using ntfy.sh
