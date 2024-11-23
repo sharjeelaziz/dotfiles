@@ -111,6 +111,8 @@ notify_via_ntfy() {
        -H "X-Priority: 3" \
        -H "Tags: $status_icon" \
        -d "Command: $last_command"
+  echo "Tags: $status_icon"
+  echo "$last_command"
 }
 
 # Add an "alert" alias for long running commands using ntfy.sh
