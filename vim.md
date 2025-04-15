@@ -187,6 +187,7 @@ We can **change (c)**, **insert (i)**, or **append (a)**, and we can do variatio
 - start typing right after the cursor: **a**
 - delete the line from where you’re at, and enter insert mode: **C**
 - delete the entire line you’re on, and enter insert mode: **S**
+- delete from the current line to the end of file: **dG**
 
 #### Changing case
 You can change the case of text using the tilde (~) command. It works as you’d imagine—either on the letter under the cursor, or on a selection.
